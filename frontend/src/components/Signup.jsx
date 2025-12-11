@@ -153,7 +153,7 @@ const Signup = ({ initialMode = 'signup' }) => {
                                     placeholder="Enter your username"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
-                                    className="border border-gray-300 rounded-xl p-2 focus:outline-none placeholder:px-8 placeholder:text-white focus:ring-2 focus:ring-[#590e77] w-full"
+                                    className="border text-white border-gray-300 rounded-xl p-2 focus:outline-none placeholder:px-8 placeholder:text-white focus:ring-2 focus:ring-[#590e77] w-full"
                                 />
                             </div>
 
@@ -169,7 +169,7 @@ const Signup = ({ initialMode = 'signup' }) => {
                                     placeholder="Enter your email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2  placeholder:px-8 placeholder:text-white focus:ring-[#590e77] w-full"
+                                    className="border text-white border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2  placeholder:px-8 placeholder:text-white focus:ring-[#590e77] w-full"
                                 />
                             </div>
                         </div>
@@ -184,7 +184,7 @@ const Signup = ({ initialMode = 'signup' }) => {
                                     placeholder="Enter your password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2  placeholder:px-8 placeholder:text-white focus:ring-[#590e77] w-full"
+                                    className="border text-white border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2  placeholder:px-8 placeholder:text-white focus:ring-[#590e77] w-full"
                                 />
 
                             </div>
