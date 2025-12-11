@@ -17,7 +17,7 @@ const Signup = ({ initialMode = 'signup' }) => {
 
         try {
             const { data } = await axios.post(
-                `${process.env.REACT_APP_API_URL}/user/signup`,
+                `${import.meta.env.VITE_API_URL}/user/signup`,
                 {
                     username,
                     email,
@@ -57,7 +57,7 @@ const Signup = ({ initialMode = 'signup' }) => {
 
         try {
             const { data } = await axios.post(
-                `${process.env.REACT_APP_API_URL}/user/login`,
+                `${import.meta.env.VITE_API_URL}/user/login`,
                 {
                     email,
                     password
@@ -70,6 +70,8 @@ const Signup = ({ initialMode = 'signup' }) => {
             );
 
             localStorage.setItem("jwt", data.token);
+            console.log(data.token,'data.token');
+            
             navigateTo("/todo");
 
             toast.success(data.message || "User logged in successfully");

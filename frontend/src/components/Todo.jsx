@@ -21,7 +21,7 @@ const Todo = () => {
       const jwt = localStorage.getItem("jwt");
       console.log(jwt);
 
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/todo/fetch`, {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/todo/fetch`, {
         headers: { Authorization: `Bearer ${jwt}` },
       });
       setTodos(response.data.todos || []);
@@ -38,7 +38,7 @@ const Todo = () => {
     try {
       const jwt = localStorage.getItem("jwt");
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/todo/create`,
+        `${import.meta.env.VITE_API_URL}/todo/create`,
         { title: newTodo, completed: false },
         { headers: { Authorization: `Bearer ${jwt}` } }
       );
@@ -57,7 +57,7 @@ const Todo = () => {
     try {
       const jwt = localStorage.getItem("jwt");
       const response = await axios.put(
-        `${process.env.REACT_APP_API_URL}/todo/update/${id}`,
+        `${import.meta.env.VITE_API_URL}/todo/update/${id}`,
         { ...todo, completed: !todo.completed },
         { headers: { Authorization: `Bearer ${jwt}` } }
       );
@@ -79,7 +79,7 @@ const Todo = () => {
       console.log(id);
 
       const jwt = localStorage.getItem("jwt");
-      await axios.delete(`${process.env.REACT_APP_API_URL}/todo/delete/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/todo/delete/${id}`, {
         headers: { Authorization: `Bearer ${jwt}` },
       });
 
