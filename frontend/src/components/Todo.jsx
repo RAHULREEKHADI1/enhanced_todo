@@ -30,7 +30,7 @@ const Todo = () => {
     }
   };
 
-  
+
 
   const createTodo = async () => {
     if (!newTodo.trim()) return;
@@ -68,8 +68,8 @@ const Todo = () => {
     }
   };
 
-  const handleKeyDown = (e)=>{
-    if(e.key==="Enter"){
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
       createTodo();
     }
   }
@@ -90,8 +90,11 @@ const Todo = () => {
   };
 
   return (
-    <div className="flex items-center justify-center p-8">
-      <div className="p-8 flex flex-col gap-8 w-[550px]  bg-white rounded-lg shadow-xl">
+    <div
+      className='flex justify-center items-center p-8 min-h-screen relative bg-cover bg-center'
+      style={{ backgroundImage: "url('/bg_image_todo.jpg')" }}
+    >
+      <div className="p-8 flex flex-col gap-8 w-[550px]  bg-[#becae7] rounded-lg shadow-xl">
         <div className="flex justify-center my-4">
           <h2 className="text-4xl">Todo Application</h2>
         </div>
@@ -115,7 +118,7 @@ const Todo = () => {
           {todos.map((todo) => (
             <div
               key={todo._id}
-              className={`flex justify-between items-center border rounded-xl p-3 ${!todo.completed ? "bg-gray-200 text-green-700 ":""}`}
+              className={`flex justify-between items-center border rounded-xl p-3 ${!todo.completed ? "bg-gray-200 text-green-700 " : ""}`}
             >
               <div className="flex gap-6 items-center">
                 <input

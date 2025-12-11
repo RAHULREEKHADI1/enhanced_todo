@@ -98,8 +98,8 @@ const Signup = ({ initialMode = 'signup' }) => {
             style={{ backgroundImage: "url('/bg-image_login.avif')" }}
         >
             <div className='flex justify-between'>
-                <div className='flex flex-col justify-center'>
-                    <div className="hidden lg:flex flex-col justify-center w-1/2 p-12  text-white rounded-l-2xl">
+                {isSignup ? <div className='flex flex-col justify-center'>
+                    <div className="hidden lg:flex flex-col justify-center w-1/2 p-12  text-white rounded-l-2xl  transition-all duration-1200ms ease-out opacity-0 translate-y-4 animate-slowFadeSlide">
 
                         <h1 className="text-4xl font-bold mb-4 leading-tight">
                             Create Your Space
@@ -113,18 +113,38 @@ const Signup = ({ initialMode = 'signup' }) => {
                         </p>
 
                     </div>
-                </div>
-                <div className="flex flex-col gap-6 w-full max-w-md bg-white p-8 rounded-xl border border-gray-100 shadow-lg">
-                    <div className="flex flex-col gap-2 text-center">
-                        <h1 className="text-3xl font-bold text-[#26221E]">TodoList</h1>
-                        <h2 className="text-xl text-[#590e77] font-semibold">
+                </div> :
+                    <div className='flex flex-col justify-center'>
+                        <div className="hidden lg:flex flex-col justify-center w-1/2 p-12 text-white rounded-l-2xl transition-all duration-1200ms ease-out opacity-0 translate-y-4 animate-slowFadeSlide">
+
+                            <h1 className="text-4xl font-bold mb-4 leading-tight">
+                                Welcome Back
+                            </h1>
+
+                            <p className="text-lg opacity-90">
+                                Access your tasks.
+                                Stay consistent.
+                                Continue your productivity journey.
+                                You're almost there.
+                            </p>
+
+                        </div>
+                    </div>}
+                <div className="flex flex-col gap-6 w-full max-w-md bg-white p-8 rounded-xl border border-gray-100 shadow-lg bg-cover bg-center"
+                    style={{ backgroundImage: "url('/bg_image_login_page.jpg')" }}
+                >
+                    <div className="flex justify-center gap-4 text-center items-center">
+                        <div className='h-15 w-15 rounded-full relative bg-cover bg-center'
+                            style={{ backgroundImage: "url('/my_todo_image.png')" }}
+                        ></div>
+                        <h2 className="text-xl text-[#b1f392] font-semibold">
                             {isSignup ? 'Sign Up' : 'Login'}
                         </h2>
                     </div>
 
                     <div className="flex flex-col gap-4">
                         <div className={`flex flex-col gap-1 transition-all duration-500 ${isSignup ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
-                            <label htmlFor="username" className="text-[#590e77] font-medium px-2 ">Username</label>
+                            <label htmlFor="username" className="text-[#b1f392] font-medium px-2 ">Username</label>
                             <div className='relative'>
                                 {username === "" ? <FaUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" /> : ''}
                                 <input
@@ -133,14 +153,14 @@ const Signup = ({ initialMode = 'signup' }) => {
                                     placeholder="Enter your username"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
-                                    className="border border-gray-300 rounded-xl p-2 focus:outline-none placeholder:px-8 focus:ring-2 focus:ring-[#590e77] w-full"
+                                    className="border border-gray-300 rounded-xl p-2 focus:outline-none placeholder:px-8 placeholder:text-white focus:ring-2 focus:ring-[#590e77] w-full"
                                 />
                             </div>
 
                         </div>
 
                         <div className="flex flex-col gap-1">
-                            <label htmlFor="email" className="text-[#590e77] font-medium px-2 ">Email</label>
+                            <label htmlFor="email" className="text-[#b1f392] font-medium px-2 ">Email</label>
                             <div className='relative'>
                                 {email === "" ? <FaEnvelope className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 " /> : ''}
                                 <input
@@ -149,13 +169,13 @@ const Signup = ({ initialMode = 'signup' }) => {
                                     placeholder="Enter your email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2  placeholder:px-8 focus:ring-[#590e77] w-full"
+                                    className="border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2  placeholder:px-8 placeholder:text-white focus:ring-[#590e77] w-full"
                                 />
                             </div>
                         </div>
 
                         <div className="flex flex-col gap-1">
-                            <label htmlFor="password" className="text-[#590e77] font-medium px-2 ">Password</label>
+                            <label htmlFor="password" className="text-[#b1f392] font-medium px-2 ">Password</label>
                             <div className='relative'>
                                 {password === "" ? <FaLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" /> : ''}
                                 <input
@@ -164,7 +184,7 @@ const Signup = ({ initialMode = 'signup' }) => {
                                     placeholder="Enter your password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2  placeholder:px-8 focus:ring-[#590e77] w-full"
+                                    className="border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2  placeholder:px-8 placeholder:text-white focus:ring-[#590e77] w-full"
                                 />
 
                             </div>
@@ -172,15 +192,15 @@ const Signup = ({ initialMode = 'signup' }) => {
                     </div>
 
                     <button
-                        className="bg-[#450b5cad] text-white w-full py-2 rounded-xl hover:bg-[#390050] transition-colors"
+                        className="bg-[#89da63] text-white w-full py-2 rounded-xl hover:bg-[#84a077] transition-colors"
                         onClick={isSignup ? handleRegister : handleLogin}
                     >
                         {isSignup ? 'Sign Up' : 'Login'}
                     </button>
-                    <hr className=" border-gray-300" />
+                    <hr className="my-2 border-gray-300" />
                     {isSignup ?
                         <div className='flex flex-col gap-4 items-center justify-center'>
-                            <div className=''>
+                            <div className='text-[#b1f392]'>
                                 <p>Or sign in with</p>
                             </div>
                             <div className='flex gap-8'>
@@ -193,7 +213,7 @@ const Signup = ({ initialMode = 'signup' }) => {
                         :
                         <p className='hidden'></p>
                     }
-                    <div className="text-center text-gray-600 mt-2 flex flex-col gap-2">
+                    <div className="text-center text-white flex flex-col gap-2">
                         {isSignup ? (
                             <p>
                                 Already signed up?{' '}
