@@ -11,7 +11,6 @@ const Todo = () => {
   const [error, setError] = useState(null);
   const numTodo = todos.filter(todo => !todo.completed).length;
 
-  const renderTodoAPI = "http://localhost:4000";
 
   useEffect(() => {
     fetchTodos();
@@ -22,7 +21,7 @@ const Todo = () => {
       const jwt = localStorage.getItem("jwt");
       console.log(jwt);
 
-      const response = await axios.get(`${renderTodoAPI}/todo/fetch`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/todo/fetch`, {
         headers: { Authorization: `Bearer ${jwt}` },
       });
       setTodos(response.data.todos || []);
@@ -39,7 +38,7 @@ const Todo = () => {
     try {
       const jwt = localStorage.getItem("jwt");
       const response = await axios.post(
-        `${renderTodoAPI}/todo/create`,
+        `${process.env.REACT_APP_API_URL}/todo/create`,
         { title: newTodo, completed: false },
         { headers: { Authorization: `Bearer ${jwt}` } }
       );
@@ -58,7 +57,7 @@ const Todo = () => {
     try {
       const jwt = localStorage.getItem("jwt");
       const response = await axios.put(
-        `${renderTodoAPI}/todo/update/${id}`,
+        `${process.env.REACT_APP_API_URL}/todo/update/${id}`,
         { ...todo, completed: !todo.completed },
         { headers: { Authorization: `Bearer ${jwt}` } }
       );
@@ -80,7 +79,7 @@ const Todo = () => {
       console.log(id);
 
       const jwt = localStorage.getItem("jwt");
-      await axios.delete(`${renderTodoAPI}/todo/delete/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/todo/delete/${id}`, {
         headers: { Authorization: `Bearer ${jwt}` },
       });
 

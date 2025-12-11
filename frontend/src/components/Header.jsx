@@ -8,13 +8,12 @@ export default function Header() {
   const navigateTo = useNavigate();
 
   const location = useLocation();
-  const renderUserAPI = "http://localhost:4000/user";
 
   const logout = async () => {
     try {
       console.log("am i coming here");
       
-      await axios.get(`${renderUserAPI}/logout`);
+      await axios.get(`${process.env.REACT_APP_API_URL}/logout`);
       console.log('is this good');
       
       toast.success("User logged out successfully");

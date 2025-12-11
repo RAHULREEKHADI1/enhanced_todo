@@ -10,7 +10,6 @@ const Signup = ({ initialMode = 'signup' }) => {
     const [password, setPassword] = useState('')
     const navigateTo = useNavigate();
     const isSignup = linkState === 'signup'
-    const renderUserAPI = "http://localhost:4000/user";
 
 
     const handleRegister = async (e) => {
@@ -18,7 +17,7 @@ const Signup = ({ initialMode = 'signup' }) => {
 
         try {
             const { data } = await axios.post(
-                `${renderUserAPI}/signup`,
+                `${process.env.REACT_APP_API_URL}/signup`,
                 {
                     username,
                     email,
@@ -58,7 +57,7 @@ const Signup = ({ initialMode = 'signup' }) => {
 
         try {
             const { data } = await axios.post(
-                `${renderUserAPI}/login`,
+                `${process.env.REACT_APP_API_URL}/login`,
                 {
                     email,
                     password
