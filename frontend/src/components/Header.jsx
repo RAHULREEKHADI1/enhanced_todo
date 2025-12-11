@@ -13,7 +13,7 @@ export default function Header() {
     try {
       console.log("am i coming here");
       
-      await axios.get(`${process.env.REACT_APP_API_URL}/logout`);
+      await axios.get(`${process.env.REACT_APP_API_URL}/user/logout`);
       console.log('is this good');
       
       toast.success("User logged out successfully");

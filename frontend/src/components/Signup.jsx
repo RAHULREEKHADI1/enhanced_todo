@@ -17,7 +17,7 @@ const Signup = ({ initialMode = 'signup' }) => {
 
         try {
             const { data } = await axios.post(
-                `${process.env.REACT_APP_API_URL}/signup`,
+                `${process.env.REACT_APP_API_URL}/user/signup`,
                 {
                     username,
                     email,
@@ -57,7 +57,7 @@ const Signup = ({ initialMode = 'signup' }) => {
 
         try {
             const { data } = await axios.post(
-                `${process.env.REACT_APP_API_URL}/login`,
+                `${process.env.REACT_APP_API_URL}/user/login`,
                 {
                     email,
                     password
