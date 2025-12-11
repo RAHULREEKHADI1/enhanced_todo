@@ -92,17 +92,19 @@ const Todo = () => {
   return (
     <div
       className='flex justify-center items-center p-8 min-h-screen relative bg-cover bg-center'
-      style={{ backgroundImage: "url('/bg_image_todo.jpg')" }}
+      style={{ backgroundImage: "url('/bg-image_login.avif')" }}
     >
-      <div className="p-8 flex flex-col gap-8 w-[550px]  bg-[#becae7] rounded-lg shadow-xl">
+      <div className="p-8 flex flex-col gap-8 w-[550px]  bg-[#becae7] border border-green-700 rounded-lg shadow-xl"
+      style={{ backgroundImage: "url('/bg_image_login_page.jpg')" }}
+      >
         <div className="flex justify-center my-4">
-          <h2 className="text-4xl">Todo Application</h2>
+          <h2 className="text-2xl md:text-4xl text-white font-semibold">Todo Application</h2>
         </div>
 
         <div className="flex border border-[#E0E0E1] bg-gray-100 rounded-lg  ">
-          <div className="flex gap-4 items-center  w-full ">
+          <div className="flex gap-4 items-center  w-full">
             <input
-              className="py-3 px-4 flex-1 focus:outline-none placeholder-gray-500 placeholder:text-xl placeholder:font-semibold"
+              className="py-3 px-4 flex-1  focus:outline-none placeholder-gray-500 placeholder:text-xl placeholder:font-semibold"
               type="text"
               value={newTodo}
               onChange={(e) => setNewTodo(e.target.value)}
@@ -112,13 +114,13 @@ const Todo = () => {
           </div>
           <FaPlus onClick={createTodo} className="bg-gray-400 text-white m-2 p-2 rounded-sm h-10 w-10" />
         </div>
-        <hr className="my-2" />
+        <hr className="my-2 text-white" />
 
         <div className="flex flex-col gap-4">
           {todos.map((todo) => (
             <div
               key={todo._id}
-              className={`flex justify-between items-center border rounded-xl p-3 ${!todo.completed ? "bg-gray-200 text-green-700 " : ""}`}
+              className="flex justify-between items-center border rounded-xl p-3 bg-gray-200"
             >
               <div className="flex gap-6 items-center">
                 <input
@@ -146,7 +148,7 @@ const Todo = () => {
             </div>
           ))}
         </div>
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center text-white">
           <div>Your remaining todos: {numTodo}
           </div>
         </div>

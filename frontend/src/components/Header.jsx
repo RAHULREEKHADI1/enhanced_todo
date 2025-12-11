@@ -30,7 +30,7 @@ export default function Header() {
 
 
   return (
-    <header className=" bg-[#590e77] py-3 sm:px-16 text-white">
+    <header className=" bg-[#231670] py-3 sm:px-16 text-white border-b border-b-white">
       <div className=" sm:mx-4 flex justify-around items-center">
 
         <div className="py-2 font-semibold text-sm sm:text-2xl tracking-wide">
