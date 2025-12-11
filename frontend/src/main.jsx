@@ -10,12 +10,12 @@ createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Toaster />
     <Routes>
-      <Route element={<Layout />}>
+      {/* <Route element={<Layout />}> */}
         <Route path="/" element={<Signup initialMode="signup" />} />
         <Route path="/signup" element={<Signup initialMode="signup" />} />
         <Route path="/login" element={<Signup initialMode="login" />} />
         <Route path="/todo" element={<Todo />} />
-      </Route>
+      {/* </Route> */}
     </Routes>
 
   </BrowserRouter>,

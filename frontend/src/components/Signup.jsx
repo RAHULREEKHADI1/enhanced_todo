@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
-import axios from 'axios'
+import axios from 'axios';
+import { FaGoogle, FaFacebook, FaTwitter } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
+
 
 const Signup = ({ initialMode = 'signup' }) => {
     const [linkState, setLinkState] = useState(initialMode)
@@ -70,8 +73,8 @@ const Signup = ({ initialMode = 'signup' }) => {
             );
 
             localStorage.setItem("jwt", data.token);
-            console.log(data.token,'data.token');
-            
+            console.log(data.token, 'data.token');
+
             navigateTo("/todo");
 
             toast.success(data.message || "User logged in successfully");
@@ -90,99 +93,146 @@ const Signup = ({ initialMode = 'signup' }) => {
     };
 
     return (
-        <div className="flex justify-center min-h-screen bg-[#FEFDFC] p-6">
-            <div className="flex flex-col gap-8 w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-                <div className="flex flex-col gap-2 text-center">
-                    <h1 className="text-3xl font-bold text-[#26221E]">TodoList</h1>
-                    <h2 className="text-xl text-gray-700">
-                        {isSignup ? 'Sign Up' : 'Login'}
-                    </h2>
-                </div>
+        <div
+            className='flex justify-center items-center p-6 min-h-screen relative bg-cover bg-center'
+            style={{ backgroundImage: "url('/bg-image_login.avif')" }}
+        >
+            <div className='flex justify-between'>
+                <div className='flex flex-col justify-center'>
+                    <div className="hidden lg:flex flex-col justify-center w-1/2 p-12  text-white rounded-l-2xl">
 
-                <div className="flex flex-col gap-4">
-                    <div className={`flex flex-col gap-1 overflow-hidden transition-all duration-500 ${isSignup ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
-                        <label htmlFor="username" className="text-gray-700 font-medium">Username</label>
-                        <input
-                            type="text"
-                            id="username"
-                            placeholder="Enter your username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            className="border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-[#CF3620]"
-                        />
-                    </div>
+                        <h1 className="text-4xl font-bold mb-4 leading-tight">
+                            Create Your Space
+                        </h1>
 
-                    <div className="flex flex-col gap-1">
-                        <label htmlFor="email" className="text-gray-700 font-medium">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            placeholder="Enter your email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-[#CF3620]"
-                        />
-                    </div>
-
-                    <div className="flex flex-col gap-1">
-                        <label htmlFor="password" className="text-gray-700 font-medium">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            placeholder="Enter your password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-[#CF3620]"
-                        />
-                    </div>
-                </div>
-
-                <button
-                    className="bg-[#CF3620] text-white w-full py-2 rounded hover:bg-[#e94a36] transition-colors"
-                    onClick={isSignup ? handleRegister : handleLogin}
-                >
-                    {isSignup ? 'Sign Up' : 'Login'}
-                </button>
-
-                <div className="text-center text-gray-600 mt-4 flex flex-col gap-2">
-                    {isSignup ? (
-                        <p>
-                            Already signed up?{' '}
-                            <span
-                                className="text-[#CF3620] hover:underline cursor-pointer"
-                                onClick={() => {
-                                    setEmail('');
-                                    setUsername('');
-                                    setPassword('');
-                                    setLinkState('login');
-                                    navigateTo('/login');
-                                }}
-                            >
-                                Go To Login
-                            </span>
+                        <p className="text-lg opacity-90">
+                            Stay organized.
+                            Track your daily tasks.
+                            Build better habits.
+                            Everything in one place.
                         </p>
-                    ) : (
-                        <>
+
+                    </div>
+                </div>
+                <div className="flex flex-col gap-6 w-full max-w-md bg-white p-8 rounded-xl border border-gray-100 shadow-lg">
+                    <div className="flex flex-col gap-2 text-center">
+                        <h1 className="text-3xl font-bold text-[#26221E]">TodoList</h1>
+                        <h2 className="text-xl text-[#590e77] font-semibold">
+                            {isSignup ? 'Sign Up' : 'Login'}
+                        </h2>
+                    </div>
+
+                    <div className="flex flex-col gap-4">
+                        <div className={`flex flex-col gap-1 transition-all duration-500 ${isSignup ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
+                            <label htmlFor="username" className="text-[#590e77] font-medium px-2 ">Username</label>
+                            <div className='relative'>
+                                {username === "" ? <FaUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" /> : ''}
+                                <input
+                                    type="text"
+                                    id="username"
+                                    placeholder="Enter your username"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    className="border border-gray-300 rounded-xl p-2 focus:outline-none placeholder:px-8 focus:ring-2 focus:ring-[#590e77] w-full"
+                                />
+                            </div>
+
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                            <label htmlFor="email" className="text-[#590e77] font-medium px-2 ">Email</label>
+                            <div className='relative'>
+                                {email === "" ? <FaEnvelope className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 " /> : ''}
+                                <input
+                                    type="email"
+                                    id="email"
+                                    placeholder="Enter your email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className="border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2  placeholder:px-8 focus:ring-[#590e77] w-full"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                            <label htmlFor="password" className="text-[#590e77] font-medium px-2 ">Password</label>
+                            <div className='relative'>
+                                {password === "" ? <FaLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" /> : ''}
+                                <input
+                                    type="password"
+                                    id="password"
+                                    placeholder="Enter your password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className="border border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2  placeholder:px-8 focus:ring-[#590e77] w-full"
+                                />
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <button
+                        className="bg-[#450b5cad] text-white w-full py-2 rounded-xl hover:bg-[#390050] transition-colors"
+                        onClick={isSignup ? handleRegister : handleLogin}
+                    >
+                        {isSignup ? 'Sign Up' : 'Login'}
+                    </button>
+                    <hr className=" border-gray-300" />
+                    {isSignup ?
+                        <div className='flex flex-col gap-4 items-center justify-center'>
+                            <div className=''>
+                                <p>Or sign in with</p>
+                            </div>
+                            <div className='flex gap-8'>
+                                <FaFacebook className="text-blue-500 w-10 h-10 " />
+                                <FaGoogle className="text-blue-500 w-10 h-10 " />
+                                <FaTwitter className="text-blue-500 w-10 h-10" />
+                            </div>
+
+                        </div>
+                        :
+                        <p className='hidden'></p>
+                    }
+                    <div className="text-center text-gray-600 mt-2 flex flex-col gap-2">
+                        {isSignup ? (
                             <p>
-                                Don’t have an account?{' '}
+                                Already signed up?{' '}
                                 <span
                                     className="text-[#CF3620] hover:underline cursor-pointer"
                                     onClick={() => {
                                         setEmail('');
+                                        setUsername('');
                                         setPassword('');
-                                        setLinkState('signup');
-                                        navigateTo('/signup');
+                                        setLinkState('login');
+                                        navigateTo('/login');
                                     }}
                                 >
-                                    Sign Up
+                                    Go To Login
                                 </span>
                             </p>
-                            <hr className="my-2 border-gray-300" />
-                        </>
-                    )}
+                        ) : (
+                            <>
+                                <p>
+                                    Don’t have an account?{' '}
+                                    <span
+                                        className="text-[#CF3620] hover:underline cursor-pointer"
+                                        onClick={() => {
+                                            setEmail('');
+                                            setPassword('');
+                                            setLinkState('signup');
+                                            navigateTo('/signup');
+                                        }}
+                                    >
+                                        Sign Up
+                                    </span>
+                                </p>
+
+                            </>
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

@@ -30,8 +30,8 @@ export default function Header() {
 
 
   return (
-    <header className="my-4 mx-1 px-2 sm:mx-4  py-4 sm:px-16 text-[#39332D]">
-      <div className="flex justify-around items-center">
+    <header className=" bg-[#590e77] py-4 sm:px-16 text-white">
+      <div className=" sm:mx-4 flex justify-around items-center">
 
         <div className="py-2 font-semibold text-sm sm:text-2xl tracking-wide">
           TodoList
