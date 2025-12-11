@@ -41,7 +41,7 @@ export default function Header() {
           <a href="#">About</a>
           <a href="#">Contact</a>
           {isTodoPage ? <button
-            className="bg-[#CF3620] py-3 text-white rounded-sm sm:w-30 w-full px-2"
+            className="bg-[#CF3620] py-3 text-white rounded-sm sm:w-30 w-full px-2 cursor-pointer"
             onClick={logout}
           >
             Logout
