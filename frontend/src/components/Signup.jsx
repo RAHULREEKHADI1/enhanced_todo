@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import axios from 'axios';
 import { FaGoogle, FaFacebook, FaTwitter } from "react-icons/fa";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
+import { motion } from 'framer-motion';
 
 
 const Signup = ({ initialMode = 'signup' }) => {
@@ -13,8 +14,40 @@ const Signup = ({ initialMode = 'signup' }) => {
     const [password, setPassword] = useState('')
     const navigateTo = useNavigate();
     const isSignup = linkState === 'signup'
+    const [startParagraph, setStartParagraph] = useState(false);
 
+    const headingText = "Welcome back";
+    const paragraphText ="Access your tasks. Stay consistent. Continue your productivity journey. You're almost there.";
+    const paragraphText2 = "Stay organized. Track your daily tasks. Build better habits. Everything in one place.";
+    const headingText2 = "Create your space";
 
+    const h1Letters = headingText.split(' ');
+    const h1Letter = headingText2.split(' ');
+    const pWords = paragraphText.split(' ');
+    const pWord = paragraphText2.split(' ');
+
+    const child = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 },
+    };
+
+    const h1Container = {
+        hidden: { opacity: 1 },
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.05 },
+        },
+    };
+
+    const pContainer = {
+        hidden: { opacity: 1 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.03,
+            },
+        },
+    };
     const handleRegister = async (e) => {
         e.preventDefault();
 
@@ -75,7 +108,7 @@ const Signup = ({ initialMode = 'signup' }) => {
             localStorage.setItem("jwt", data.token);
             console.log(data.token, 'data.token');
 
-            navigateTo("/todo");
+            navigateTo("/welcome");
 
             toast.success(data.message || "User logged in successfully");
 
@@ -101,32 +134,97 @@ const Signup = ({ initialMode = 'signup' }) => {
                 {isSignup ? <div className='flex flex-col justify-center'>
                     <div className="hidden lg:flex flex-col justify-center w-1/2 p-12  text-white rounded-l-2xl  transition-all duration-1200ms ease-out opacity-0 translate-y-4 animate-slowFadeSlide">
 
-                        <h1 className="text-4xl font-bold mb-4 leading-tight">
-                            Create Your Space
-                        </h1>
+                        <motion.h1
+                            key={`signup-heading`}
+                            initial="hidden"
+                            animate="visible"
+                            variants={h1Container}
+                            className="text-4xl font-bold leading-tight mb-4"
+                            onAnimationComplete={() => setStartParagraph(true)}
 
-                        <p className="text-lg opacity-90">
-                            Stay organized.
-                            Track your daily tasks.
-                            Build better habits.
-                            Everything in one place.
-                        </p>
+                        >
+                            {h1Letter.map((word, wIndex) => (
+                                <span key={wIndex} className="inline-block mr-2">
+                                    {Array.from(word).map((letter, lIndex) => (
+                                        <motion.span
+                                            key={lIndex}
+                                            variants={child}
+                                            style={{ display: "inline-block" }}
+                                        >
+                                            {letter}
+                                        </motion.span>
+                                    ))}
+                                </span>
+                            ))}
+                        </motion.h1>
+                        <motion.p
+                            className="text-lg opacity-90"
+                            variants={pContainer}
+                            initial="hidden"
+                            animate={startParagraph ? "visible" : "hidden"}
+                        >
+                            {pWord.map((word, wordIndex) => (
+                                <span key={wordIndex} className="inline-block mr-2">
+                                    {Array.from(word).map((letter, letterIndex) => (
+                                        <motion.span
+                                            key={letterIndex}
+                                            variants={child}
+                                            style={{ display: "inline-block" }}
+                                        >
+                                            {letter}
+                                        </motion.span>
+                                    ))}
+                                </span>
+                            ))}
+                        </motion.p>
 
                     </div>
                 </div> :
                     <div className='flex flex-col justify-center'>
                         <div className="hidden lg:flex flex-col justify-center w-1/2 p-12 text-white rounded-l-2xl transition-all duration-1200ms ease-out opacity-0 translate-y-4 animate-slowFadeSlide">
+                            <motion.h1
+                                key={`login-heading`}
+                                initial="hidden"
+                                animate="visible"
+                                variants={h1Container}
+                                className="text-4xl font-bold leading-tight mb-4"
+                                onAnimationComplete={() => setStartParagraph(true)}
 
-                            <h1 className="text-4xl font-bold mb-4 leading-tight">
-                                Welcome Back
-                            </h1>
-
-                            <p className="text-lg opacity-90">
-                                Access your tasks.
-                                Stay consistent.
-                                Continue your productivity journey.
-                                You're almost there.
-                            </p>
+                            >
+                                {h1Letters.map((word, wIndex) => (
+                                    <span key={wIndex} className="inline-block mr-2">
+                                        {Array.from(word).map((letter, lIndex) => (
+                                            <motion.span
+                                                key={lIndex}
+                                                variants={child}
+                                                style={{ display: "inline-block" }}
+                                            >
+                                                {letter}
+                                            </motion.span>
+                                        ))}
+                                    </span>
+                                ))}
+                            </motion.h1>
+                            <motion.p
+                                className="text-lg opacity-90"
+                                variants={pContainer}
+                                initial="hidden"
+                                animate={startParagraph ? "visible" : "hidden"}
+                            >
+                                {pWords.map((word, wordIndex) => (
+                                    <span key={wordIndex} className="inline-block mr-2">
+                                        {Array.from(word).map((letter, letterIndex) => (
+                                            <motion.span
+                                                key={letterIndex}
+                                                variants={child}
+                                                style={{ display: "inline-block" }}
+                                            >
+                                                {letter}
+                                            </motion.span>
+                                        ))}
+                                    </span>
+                                ))}
+                            </motion.p>
 
                         </div>
                     </div>}
@@ -225,6 +323,7 @@ const Signup = ({ initialMode = 'signup' }) => {
                                         setPassword('');
                                         setLinkState('login');
                                         navigateTo('/login');
+                                        setStartParagraph(false); 
                                     }}
                                 >
                                     Go To Login
@@ -241,6 +340,7 @@ const Signup = ({ initialMode = 'signup' }) => {
                                             setPassword('');
                                             setLinkState('signup');
                                             navigateTo('/signup');
+                                            setStartParagraph(false); 
                                         }}
                                     >
                                         Sign Up
@@ -257,3 +357,4 @@ const Signup = ({ initialMode = 'signup' }) => {
 };
 
 export default Signup;
+
