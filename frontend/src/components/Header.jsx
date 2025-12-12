@@ -30,20 +30,20 @@ export default function Header() {
 
 
   return (
-    <header className={` sm:px-8 lg:px-16 border-b border-b-[#b1f392] text-white py-6 bg-cover bg-center`}
+    <header className={`px-4 md:px-8 lg:px-16 border-b border-b-[#b1f392] text-white py-6 bg-cover bg-center`}
     style={{ backgroundImage: "url('/bg_image_login_new.png')" }}
     >
       <div className=" sm:mx-4 flex justify-between  items-center">
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-1 sm:gap-2 md:gap-4">
           <div className='h-10 w-10 lg:h-15 lg:w-15 rounded-full relative bg-cover bg-center'
             style={{ backgroundImage: "url('/my_todo_image.png')" }}
           ></div>
-          <div className="py-2 font-semibold text-sm sm:text-2xl tracking-wide text-[#b1f392]">
+          <div className="py-2 font-semibold text-sm sm:text-2xl tracking-wide text-[#b1f392] hidden sm:block ">
             TodoList
           </div>
         </div>
 
-        <div className="flex items-center lg:gap-16 gap-8 text-sm sm:text-lg">
+        <div className="flex items-center lg:gap-16 md:gap-8 sm:gap-6 gap-4 text-sm sm:text-lg">
           <a href="/">Home</a>
           <a href="#">About</a>
           <a href="#">Contact</a>

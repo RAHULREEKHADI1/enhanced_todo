@@ -94,7 +94,7 @@ const Todo = () => {
       className='flex justify-center p-8 min-h-screen relative bg-cover bg-center' 
       style={{ backgroundImage: "url('/bg_image_login_new.png')" }}
     >
-      <div className="p-8 mt-8 flex flex-col gap-8 w-[550px] min-h-fit bg-[#becae7] border border-green-700 rounded-lg shadow-xl bg-cover bg-center"
+      <div className="p-8 mt-8 flex flex-col gap-8 w-[550px] max-h-fit bg-[#becae7] border border-green-700 rounded-lg shadow-xl bg-cover bg-center"
         style={{ backgroundImage: "url('/bg_image_login_page.jpg')" }}
       >
         <div className="flex justify-center items-center gap-5 my-4">
@@ -115,7 +115,7 @@ const Todo = () => {
               onKeyDown={handleKeyDown}
             />
           </div>
-          <FaPlus onClick={createTodo} className="bg-gray-400 text-white m-2 p-2 rounded-sm h-10 w-10 hover:-translate-y-1 transition-all duration-400" />
+          <FaPlus onClick={createTodo} className="bg-gray-400 text-white m-2 p-2 rounded-sm h-10 w-10 hover:scale-110 transition-all duration-400" />
         </div>
         <hr className="my-2 text-white" />
 

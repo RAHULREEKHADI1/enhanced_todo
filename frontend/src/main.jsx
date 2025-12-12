@@ -6,6 +6,7 @@ import Todo from './components/Todo.jsx'
 import { Toaster } from 'react-hot-toast'
 import Layout from './components/Layout.jsx'
 import Home from './components/Home.jsx'
+import Welcome from './components/Welcome.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -14,6 +15,7 @@ createRoot(document.getElementById('root')).render(
       <Route element={<Layout />}>
         <Route path="/" element={<Home/>} />
       </Route>
+      <Route path='/welcome' element={<Welcome/>}/>
       <Route path="/signup" element={<Signup initialMode="signup" />} />
       <Route path="/login" element={<Signup initialMode="login" />} />
       <Route element={<Layout />}>
