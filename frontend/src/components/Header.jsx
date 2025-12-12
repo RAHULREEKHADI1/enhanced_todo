@@ -12,17 +12,17 @@ export default function Header() {
   const logout = async () => {
     try {
       console.log("am i coming here");
-      
+
       await axios.get(`${import.meta.env.VITE_API_URL}/user/logout`);
       console.log('is this good');
-      
+
       toast.success("User logged out successfully");
       navigateTo("/login");
       localStorage.removeItem("jwt");
     } catch (err) {
       toast.error("Error logging out");
       console.log(err);
-      
+
     }
   };
 
@@ -30,22 +30,35 @@ export default function Header() {
 
 
   return (
-    <header className=" bg-[#231670] py-3 sm:px-16 text-white border-b border-b-white">
-      <div className=" sm:mx-4 flex justify-around items-center">
-
-        <div className="py-2 font-semibold text-sm sm:text-2xl tracking-wide">
-          TodoList
+    <header className={` sm:px-8 lg:px-16 border-b border-b-[#b1f392] text-white py-6 bg-cover bg-center`}
+    style={{ backgroundImage: "url('/bg_image_login_new.png')" }}
+    >
+      <div className=" sm:mx-4 flex justify-between  items-center">
+        <div className="flex items-center justify-center gap-4">
+          <div className='h-10 w-10 lg:h-15 lg:w-15 rounded-full relative bg-cover bg-center'
+            style={{ backgroundImage: "url('/my_todo_image.png')" }}
+          ></div>
+          <div className="py-2 font-semibold text-sm sm:text-2xl tracking-wide text-[#b1f392]">
+            TodoList
+          </div>
         </div>
-        <div className="flex items-center lg:gap-16 gap-4 text-sm sm:text-lg">
-          <a href="#">Home</a>
+
+        <div className="flex items-center lg:gap-16 gap-8 text-sm sm:text-lg">
+          <a href="/">Home</a>
           <a href="#">About</a>
           <a href="#">Contact</a>
           {isTodoPage ? <button
-            className="bg-[#CF3620] py-3 text-white rounded-sm sm:w-30 w-full px-2 cursor-pointer"
+            className="bg-[#CF3620] py-1 lg:py-3 text-white rounded-lg px-2 lg:px-4 cursor-pointer shadow-[0_8px_15px_rgba(207,54,32,0.4)]"
             onClick={logout}
           >
             Logout
-          </button> :''
+          </button> :
+            <button
+              className="bg-[#CF3620] py-1 lg:py-3 text-white px-2 lg:px-4 cursor-pointer rounded-lg shadow-[0_8px_15px_rgba(207,54,32,0.4)]"
+              onClick={() => navigateTo("/signup")}
+            >
+              Start for free
+            </button>
           }
         </div>
       </div>

@@ -134,10 +134,10 @@ const Signup = ({ initialMode = 'signup' }) => {
                     style={{ backgroundImage: "url('/bg_image_login_page.jpg')" }}
                 >
                     <div className="flex justify-center gap-4 text-center items-center">
-                        <div className='h-15 w-15 rounded-full relative bg-cover bg-center'
+                        <div className='h-8 w-8 lg:h-12 lg:w-12 rounded-full relative bg-cover bg-center'
                             style={{ backgroundImage: "url('/my_todo_image.png')" }}
                         ></div>
-                        <h2 className="text-xl text-[#b1f392] font-semibold">
+                        <h2 className="text-2xl text-[#b1f392] font-semibold">
                             {isSignup ? 'Sign Up' : 'Login'}
                         </h2>
                     </div>
@@ -153,7 +153,7 @@ const Signup = ({ initialMode = 'signup' }) => {
                                     placeholder="Enter your username"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
-                                    className="border text-white border-gray-300 rounded-xl p-2 focus:outline-none placeholder:px-8 placeholder:text-white focus:ring-2 focus:ring-[#590e77] w-full"
+                                    className="border text-white border-gray-300 rounded-xl p-2 focus:outline-none placeholder:px-8 placeholder:text-white focus:ring-2 focus:ring-[#b1f392]  w-full"
                                 />
                             </div>
 
@@ -169,7 +169,7 @@ const Signup = ({ initialMode = 'signup' }) => {
                                     placeholder="Enter your email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="border text-white border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2  placeholder:px-8 placeholder:text-white focus:ring-[#590e77] w-full"
+                                    className="border text-white border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2  placeholder:px-8 placeholder:text-white focus:ring-[#b1f392]  w-full"
                                 />
                             </div>
                         </div>
@@ -184,7 +184,7 @@ const Signup = ({ initialMode = 'signup' }) => {
                                     placeholder="Enter your password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="border text-white border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2  placeholder:px-8 placeholder:text-white focus:ring-[#590e77] w-full"
+                                    className="border text-white border-gray-300 rounded-xl p-2 focus:outline-none focus:ring-2  placeholder:px-8 placeholder:text-white focus:ring-[#b1f392]  w-full"
                                 />
 
                             </div>
