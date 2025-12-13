@@ -14,6 +14,7 @@ const Signup = ({ initialMode = 'signup' }) => {
     const [password, setPassword] = useState('')
     const navigateTo = useNavigate();
     const isSignup = linkState === 'signup'
+    const [role, setRole] = useState('user');
     const [startParagraph, setStartParagraph] = useState(false);
 
     const headingText = "Welcome back";
@@ -70,6 +71,7 @@ const Signup = ({ initialMode = 'signup' }) => {
             toast.success(data.message || "User registered successfully");
 
             localStorage.setItem("jwt", data.token);
+            localStorage.setItem("role", role);
 
             navigateTo("/login");
             setLinkState('login');
@@ -77,6 +79,7 @@ const Signup = ({ initialMode = 'signup' }) => {
             setUsername("");
             setEmail("");
             setPassword("");
+            setRole('user')
         } catch (error) {
             console.log(error);
 
@@ -106,12 +109,19 @@ const Signup = ({ initialMode = 'signup' }) => {
             );
 
             localStorage.setItem("jwt", data.token);
+            localStorage.setItem("role",data.user.role);
+            console.log("role",data.user.role);
+            
             console.log(data.token, 'data.token');
 
-            navigateTo("/welcome");
-
-            toast.success(data.message || "User logged in successfully");
-
+            navigateTo(data.user.role === 'admin' ? '/admin/dashboard' : '/welcome');
+            console.log(data.user.role);
+            
+            toast.success(
+                data.user.role === "admin"
+                    ? "Admin logged in successfully"
+                    : data.message || "User logged in successfully"
+            );
             setEmail("");
             setPassword("");
         } catch (error) {
@@ -323,7 +333,7 @@ const Signup = ({ initialMode = 'signup' }) => {
                                         setPassword('');
                                         setLinkState('login');
                                         navigateTo('/login');
-                                        setStartParagraph(false); 
+                                        setStartParagraph(false);
                                     }}
                                 >
                                     Go To Login

@@ -1,11 +1,14 @@
-import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useState } from "react";
 
 
 export default function Header() {
   const navigateTo = useNavigate();
+
+  const [token, setToken] = useState(localStorage.getItem('jwt'))
+  console.log(token, 'dfghjk');
 
   const location = useLocation();
 
@@ -19,6 +22,8 @@ export default function Header() {
       toast.success("User logged out successfully");
       navigateTo("/login");
       localStorage.removeItem("jwt");
+      localStorage.removeItem('role')
+      setToken(null)
     } catch (err) {
       toast.error("Error logging out");
       console.log(err);
@@ -31,7 +36,7 @@ export default function Header() {
 
   return (
     <header className={`px-4 md:px-8 lg:px-16 border-b border-b-[#b1f392] text-white py-6 bg-cover bg-center`}
-    style={{ backgroundImage: "url('/bg_image_login_new.png')" }}
+      style={{ backgroundImage: "url('/bg_image_login_new.png')" }}
     >
       <div className=" sm:mx-4 flex justify-between  items-center">
         <div className="flex items-center justify-center gap-1 sm:gap-2 md:gap-4">
@@ -47,19 +52,24 @@ export default function Header() {
           <a href="/">Home</a>
           <a href="#">About</a>
           <a href="#">Contact</a>
-          {isTodoPage ? <button
-            className="bg-[#CF3620] py-1 lg:py-3 text-white rounded-lg px-2 lg:px-4 cursor-pointer shadow-[0_8px_15px_rgba(207,54,32,0.4)]"
-            onClick={logout}
-          >
-            Logout
-          </button> :
+          {token && isTodoPage && (
+            <button
+              className="bg-[#CF3620] py-1 lg:py-3 text-white rounded-lg px-2 lg:px-4 cursor-pointer shadow-[0_8px_15px_rgba(207,54,32,0.4)]"
+              onClick={logout}
+            >
+              Logout
+            </button>
+          )}
+
+          {!token && (
             <button
               className="bg-[#CF3620] py-1 lg:py-3 text-white px-2 lg:px-4 cursor-pointer rounded-lg shadow-[0_8px_15px_rgba(207,54,32,0.4)]"
               onClick={() => navigateTo("/signup")}
             >
               Start for free
             </button>
-          }
+          )}
+
         </div>
       </div>
     </header>

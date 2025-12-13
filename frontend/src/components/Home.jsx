@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
 
     const navigateTo = useNavigate();
+    const [token, setToken] = useState(localStorage.getItem('jwt'))
 
     return (
         <div className='flex justify-center items-center p-4 lg:p-8 min-h-screen relative bg-linear-to-r from-[#E8E4FF] via-[#6C5CE7] to-[#231670]'>
@@ -12,8 +14,24 @@ const Home = () => {
                         <div className="flex flex-col sm:grid sm:grid-cols-[40%_60%] gap-6 lg:gap-12 items-center m-4 py-4 px-8 lg:px-16">
                             <div className='flex flex-col gap-3 md:gap-4 xl:gap-8'>
                                 <h2 className='text-xl md:text-4xl xl:text-6xl font-semibold text-[#26221E]'>Clarity finally.</h2>
+                                {token && (
+                                    <button
+                                        className="hidden sm:block bg-[#89DA63] text-sm md:text-md xl:text-xl py-1 md:py-2 lg:py-3 text-white font-semibold px-2 sm:px-4 cursor-pointer rounded-lg shadow-[0_8px_15px_rgba(207,54,32,0.4)]"
+                                        onClick={() =>
+                                            navigateTo(
+                                                localStorage.getItem("role") === "admin"
+                                                    ? "/admin/dashboard"
+                                                    : "/todo"
+                                            )
+                                        }
+                                    >
+                                        {localStorage.getItem("role") === "admin"
+                                            ? "Go to Admin Dashboard"
+                                            : "Your Todo Dashboard"}
+                                    </button>
+                                )}
                                 <h3 className='text-sm md:text-md xl:text-xl text-white font-semibold'>Join a growing community of professionals who manage tasks, projects, and life with clarity and confidence.</h3>
-                                <button className='hidden sm:block bg-[#89DA63] text-sm md:text-md xl:text-xl py-1 md:py-2 lg:py-3 text-white font-semibold px-2 sm:px-4 cursor-pointer rounded-lg shadow-[0_8px_15px_rgba(207,54,32,0.4)]' onClick={() => navigateTo('/signup')} >Start for free</button>
+                                {!token && <button className='hidden sm:block bg-[#89DA63] text-sm md:text-md xl:text-xl py-1 md:py-2 lg:py-3 text-white font-semibold px-2 sm:px-4 cursor-pointer rounded-lg shadow-[0_8px_15px_rgba(207,54,32,0.4)]' onClick={() => navigateTo('/signup')} >Start for free</button>}
                             </div>
                             <div>
                                 <img loading='lazy' src="todo_img.avif" alt="Todo App" className="w-full " />
