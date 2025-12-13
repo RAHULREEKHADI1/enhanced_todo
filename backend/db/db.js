@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import User from '../model/user.model.js';
+import bcrypt from 'bcryptjs';
 
 
 export async function connectToDB() {

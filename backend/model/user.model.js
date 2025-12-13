@@ -1,4 +1,4 @@
-import mongoose, {Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const userSchema = new Schema(
     {
@@ -14,10 +14,15 @@ const userSchema = new Schema(
         password: {
             type: String,
             required: true,
-            select: false, 
+            select: false,
         },
         token: {
             type: String,
+        },
+        role: {
+            type: String,
+            default: "user",
+            enum: ["user", "admin"]
         }
     }
 );

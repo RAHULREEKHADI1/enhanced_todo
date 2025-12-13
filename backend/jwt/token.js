@@ -7,7 +7,13 @@ export const generateToken = async (userId) => {
       throw new Error("JWT_SECRET_KEY is missing in environment variables");
     }
 
-    const token = jwt.sign({ userId: userId }, process.env.JWT_SECRET_KEY, {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const token = jwt.sign({ userId: user._id ,role: user.role}, process.env.JWT_SECRET_KEY, {
       expiresIn: "10d",
     });
 

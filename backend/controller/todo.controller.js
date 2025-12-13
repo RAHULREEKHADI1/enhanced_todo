@@ -34,6 +34,9 @@ export const updateTodo = async (req, res) => {
             req.body,
             { new: true }
         );
+        if (req.user.role !== "admin" && todo.user.toString() !== req.user.userId) {
+            return res.status(403).json({ message: "Not allowed to update this todo" });
+        }
 
         if (!todo) return res.status(404).json({ message: "Todo not found" });
 
@@ -44,17 +47,30 @@ export const updateTodo = async (req, res) => {
     }
 };
 
+
 export const deleteTodo = async (req, res) => {
-    try {
-        console.log("hi");
-        
-        const todo = await Todo.findOneAndDelete({ _id: req.params.id, user: req.user.id });
+  try {
+    const todo = await Todo.findById(req.params.id);
 
-        if (!todo) return res.status(404).json({ message: "Todo not found" });
-
-        res.status(200).json({ message: "Todo deleted successfully" });
-    } catch (error) {
-        console.error(error);
-        res.status(400).json({ message: "Error occurred in deleting todo" });
+    if (!todo) {
+      return res.status(404).json({ message: "Todo not found" });
     }
+    const todoUserId = todo.user._id ? todo.user._id.toString() : todo.user.toString();
+    const isOwner = todoUserId === req.user._id.toString();
+
+    if (!isOwner) {
+      return res.status(403).json({ message: "You can delete only your own todos" });
+    }
+
+    await todo.deleteOne();
+    res.json({ message: "Todo deleted successfully" });
+
+  } catch (error) {
+    console.error("Error deleting todo:", error);
+    res.status(500).json({ message: "Server error" });
+  }
 };
+
+
+
+

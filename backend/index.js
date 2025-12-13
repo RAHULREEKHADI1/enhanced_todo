@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { connectToDB } from "./db/db.js";
 import todoRouter from "./routes/todo.routes.js";
 import userRouter from "./routes/user.routes.js";
+import adminRouter from "./routes/admin.routes.js";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use("/user", userRouter);
 app.use("/todo", todoRouter);
+app.use("/admin",adminRouter)
 
 async function start() {
   await connectToDB();
