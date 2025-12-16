@@ -14,19 +14,16 @@ const Welcome = () => {
         "Now it’s your turn!"
     ];
     useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(location.search);
     const token = params.get("jwt");
 
     if (token) {
       localStorage.setItem("jwt", token);
-
-      window.history.replaceState({}, document.title, "/welcome");
-
-      navigate("/welcome", { replace: true });
+      window.history.replaceState({}, document.title, location.pathname);
     } else {
       navigate("/login", { replace: true });
     }
-  }, []);
+  }, [location, navigate]);
 
     
 
