@@ -18,7 +18,7 @@ const Signup = ({ initialMode = 'signup' }) => {
     const [startParagraph, setStartParagraph] = useState(false);
 
     const headingText = "Welcome back";
-    const paragraphText = "Access your tasks. Stay consistent. Continue your productivity journey. You're almost there.";
+    const paragraphText ="Access your tasks. Stay consistent. Continue your productivity journey. You're almost there.";
     const paragraphText2 = "Stay organized. Track your daily tasks. Build better habits. Everything in one place.";
     const headingText2 = "Create your space";
 
@@ -90,29 +90,9 @@ const Signup = ({ initialMode = 'signup' }) => {
             }
         }
     };
-    useEffect(() => {
-        const handleMessage = (event) => {
-            if (event.origin !== BACKEND_URL) return;
 
-            const { token } = event.data;
-            if (token) {
-                localStorage.setItem("token", token);
-                navigateTo("/welcome"); // or dashboard
-            }
-        };
-        window.addEventListener("message", handleMessage);
-        return () => window.removeEventListener("message", handleMessage);
-    }, [navigateTo]);
     const handleLogin = async (e) => {
         e.preventDefault();
-
-        const openPopup = (provider) => {
-            window.open(
-                `${BACKEND_URL}/auth/${provider}`,
-                "_blank",
-                "width=500,height=600"
-            );
-        };
 
         try {
             const { data } = await axios.post(
@@ -129,14 +109,14 @@ const Signup = ({ initialMode = 'signup' }) => {
             );
 
             localStorage.setItem("jwt", data.token);
-            localStorage.setItem("role", data.user.role);
-            console.log("role", data.user.role);
-
+            localStorage.setItem("role",data.user.role);
+            console.log("role",data.user.role);
+            
             console.log(data.token, 'data.token');
 
             navigateTo(data.user.role === 'admin' ? '/admin/dashboard' : '/welcome');
             console.log(data.user.role);
-
+            
             toast.success(
                 data.user.role === "admin"
                     ? "Admin logged in successfully"
@@ -332,17 +312,9 @@ const Signup = ({ initialMode = 'signup' }) => {
                                 <p>Or sign in with</p>
                             </div>
                             <div className='flex gap-8'>
-                                <a href="https://enhanced-todo.onrender.com/auth/facebook">
-                                    <FaFacebook className="text-blue-500 w-10 h-10 cursor-pointer" onClick={() => openPopup("google")} />
-                                </a>
-
-                                <a href="https://enhanced-todo.onrender.com/auth/google">
-                                    <FaGoogle className="text-red-500 w-10 h-10 cursor-pointer" />
-                                </a>
-
-                                <a href="https://enhanced-todo.onrender.com/auth/twitter">
-                                    <FaTwitter className="text-blue-400 w-10 h-10 cursor-pointer" onClick={() => openPopup("twitter")} />
-                                </a>
+                                <FaFacebook className="text-blue-500 w-10 h-10 " />
+                                <FaGoogle className="text-blue-500 w-10 h-10 " />
+                                <FaTwitter className="text-blue-500 w-10 h-10" />
                             </div>
 
                         </div>
@@ -378,7 +350,7 @@ const Signup = ({ initialMode = 'signup' }) => {
                                             setPassword('');
                                             setLinkState('signup');
                                             navigateTo('/signup');
-                                            setStartParagraph(false);
+                                            setStartParagraph(false); 
                                         }}
                                     >
                                         Sign Up
