@@ -9,13 +9,19 @@ import passport from "passport";
 import authRouter from "./routes/oAuth.routes.js";
 import configurePassport from "./config/passport.js";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
-app.use(session({ secret: "secret", resave: false, saveUninitialized: false }));
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
+}));
 app.use(cors({
   origin: [
     "http://localhost:5173",
