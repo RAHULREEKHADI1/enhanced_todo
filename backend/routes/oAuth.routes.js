@@ -1,0 +1,36 @@
+import express from 'express'
+import passport from 'passport';
+
+const authRouter = express.Router();
+authRouter.get("/google", passport.authenticate("google", { scope: ["email", "profile"] }));
+// authRouter.get("/facebook", passport.authenticate("facebook", { scope: ["email"] }));
+authRouter.get("/twitter", passport.authenticate("twitter"));
+
+authRouter.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+authRouter.get("/google/callback",
+  passport.authenticate("google", { session: false }),
+  (req, res) => {
+    const token = generateToken(req.user);
+    res.redirect(`${process.env.FRONTEND_URL}/welcome?token=${token}`);
+  }
+);
+
+// authRouter.get("/facebook", passport.authenticate("facebook", { scope: ["email"] }));
+// authRouter.get("/facebook/callback",
+//   passport.authenticate("facebook", { session: false }),
+//   (req, res) => {
+//     const token = generateToken(req.user);
+//     res.redirect(`${process.env.FRONTEND_URL}/login-success?token=${token}`);
+//   }
+// );
+
+authRouter.get("/twitter", passport.authenticate("twitter"));
+authRouter.get("/twitter/callback",
+  passport.authenticate("twitter", { session: false }),
+  (req, res) => {
+    const token = generateToken(req.user);
+    res.redirect(`${process.env.FRONTEND_URL}/welcome?token=${token}`);
+  }
+);
+
+export default authRouter
