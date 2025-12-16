@@ -312,16 +312,8 @@ const Signup = ({ initialMode = 'signup' }) => {
                                 <p>Or sign in with</p>
                             </div>
                             <div className='flex gap-8'>
-                                <a href="https://enhanced-todo.onrender.com/auth/facebook">
-                                    <FaFacebook className="text-blue-500 w-10 h-10 cursor-pointer" />
-                                </a>
-
                                 <a href="https://enhanced-todo.onrender.com/auth/google">
                                     <FaGoogle className="text-red-500 w-10 h-10 cursor-pointer" />
-                                </a>
-
-                                <a href="https://enhanced-todo.onrender.com/auth/twitter">
-                                    <FaTwitter className="text-blue-400 w-10 h-10 cursor-pointer" />
                                 </a>
                             </div>
 
