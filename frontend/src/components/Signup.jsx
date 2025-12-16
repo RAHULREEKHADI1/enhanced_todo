@@ -312,7 +312,7 @@ const Signup = ({ initialMode = 'signup' }) => {
                                 <p>Or sign in with</p>
                             </div>
                             <div className='flex gap-8'>
-                                <a href="https://enhanced-todo.onrender.com/auth/google">
+                                <a href={`${import.meta.env.VITE_API_URL}/auth/google`}>
                                     <FaGoogle className="text-red-500 w-10 h-10 cursor-pointer" />
                                 </a>
                             </div>

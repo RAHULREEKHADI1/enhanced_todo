@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -13,6 +13,22 @@ const Welcome = () => {
         "Achieve goals and finish projects",
         "Now it’s your turn!"
     ];
+    useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("jwt");
+
+    if (token) {
+      localStorage.setItem("jwt", token);
+
+      window.history.replaceState({}, document.title, "/welcome");
+
+      navigate("/welcome", { replace: true });
+    } else {
+      navigate("/login", { replace: true });
+    }
+  }, []);
+
+    
 
     const child = {
         hidden: { opacity: 0 },

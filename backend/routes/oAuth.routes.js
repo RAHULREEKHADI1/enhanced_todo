@@ -8,9 +8,8 @@ authRouter.get("/google", passport.authenticate("google", { scope: ["profile", "
 authRouter.get("/google/callback",
   passport.authenticate("google", { session: false }),
   async (req, res) => {
-    const token =await generateToken(req.user);
-    res.send(token)
-    res.redirect(`${process.env.FRONTEND_URL}welcome`);
+    const token =await generateToken(req.user._id);
+    res.redirect(`${process.env.FRONTEND_URL}welcome?jwt=${token}`);
   }
 );
 
