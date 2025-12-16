@@ -30,11 +30,11 @@ export const getTodo = async (req, res) => {
 export const updateTodo = async (req, res) => {
     try {
         const todo = await Todo.findOneAndUpdate(
-            { _id: req.params.id, user: req.user.id },
+            { _id: req.params.id, user: req.user._id },
             req.body,
             { new: true }
         );
-        if (req.user.role !== "admin" && todo.user.toString() !== req.user.userId) {
+        if (req.user.role !== "admin" && todo.user.toString() !== req.user._id) {
             return res.status(403).json({ message: "Not allowed to update this todo" });
         }
 
