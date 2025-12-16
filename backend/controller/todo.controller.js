@@ -34,7 +34,7 @@ export const updateTodo = async (req, res) => {
             req.body,
             { new: true }
         );
-        if (req.user.role !== "admin" && todo.user.toString() !== req.user.userId) {
+        if (req.user.role !== "admin" && todo.user.toString() !== req.user.id) {
             return res.status(403).json({ message: "Not allowed to update this todo" });
         }
 
