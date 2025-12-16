@@ -42,8 +42,8 @@ export default function configurePassport() {
 //   }));
 
   passport.use(new TwitterStrategy({
-    consumerKey: process.env.TWITTER_CLIENT_ID,
-    consumerSecret: process.env.TWITTER_CLIENT_SECRET,
+    consumerKey: process.env.TWITTER_API_KEY,
+    consumerSecret: process.env.TWITTER_API_SECRET,
     callbackURL: "/auth/twitter/callback"
   }, async (token, tokenSecret, profile, done) => {
     let user = await User.findOne({ twitterId: profile.id });
