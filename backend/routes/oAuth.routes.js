@@ -11,7 +11,7 @@ authRouter.get("/google/callback",
   passport.authenticate("google", { session: false }),
   (req, res) => {
     const token = generateToken(req.user);
-    res.redirect(`${process.env.FRONTEND_URL}/login-success?token=${token}`);
+    res.redirect(`${process.env.FRONTEND_URL}/welcome?token=${token}`);
   }
 );
 
@@ -29,7 +29,7 @@ authRouter.get("/twitter/callback",
   passport.authenticate("twitter", { session: false }),
   (req, res) => {
     const token = generateToken(req.user);
-    res.redirect(`${process.env.FRONTEND_URL}/login-success?token=${token}`);
+    res.redirect(`${process.env.FRONTEND_URL}/welcome?token=${token}`);
   }
 );
 
