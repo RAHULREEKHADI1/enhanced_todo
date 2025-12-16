@@ -12,7 +12,7 @@ authRouter.get("/google/callback",
   passport.authenticate("google", { session: false }),
   async (req, res) => {
     const token =await generateToken(req.user);
-    res.redirect(`${process.env.FRONTEND_URL}welcome`);
+    res.redirect(`${process.env.FRONTEND_URL}welcome?token=${token}`);
   }
 );
 
@@ -30,7 +30,7 @@ authRouter.get("/twitter/callback",
   passport.authenticate("twitter", { session: false }),
   async (req, res) => {
     const token = await generateToken(req.user);
-    res.redirect(`${process.env.FRONTEND_URL}welcome`);
+    res.redirect(`${process.env.FRONTEND_URL}welcome?token=${token}`);
   }
 );
 
