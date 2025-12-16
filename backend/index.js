@@ -20,7 +20,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  store: MongoStore.create({ mongoUrl: process.env.MONGO_URL })
+  store: MongoStore.create({ mongoUrl: process.env.MONGODB_URL })
 }));
 app.use(cors({
   origin: [
