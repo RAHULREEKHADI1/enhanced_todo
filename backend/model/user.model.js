@@ -10,12 +10,16 @@ const userSchema = new Schema(
         },
         email: {
             type: String,
-            required: true,
+            required: function () {
+                return !this.googleId && !this.twitterId;
+            },
             unique: true,
         },
         password: {
             type: String,
-            required: true,
+            required: function () {
+                return !this.googleId && !this.twitterId;
+            },
             select: false,
         },
         token: {
