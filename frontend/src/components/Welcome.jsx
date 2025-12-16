@@ -6,18 +6,6 @@ import { useNavigate } from 'react-router-dom';
 const Welcome = () => {
     const navigate = useNavigate();
 
-    useEffect(() => {
-  const params = new URLSearchParams(window.location.search);
-  const token = params.get("token");
-
-  if (token) {
-    localStorage.setItem("token", token);
-    console.log("topken k kyua hua lad;e");
-    
-    window.history.replaceState({}, "", "/welcome");
-  }
-}, []);
-
     const lines = [
         "TodoList can help you...",
         "Organize the everyday chaos",
