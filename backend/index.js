@@ -5,6 +5,8 @@ import { connectToDB } from "./db/db.js";
 import todoRouter from "./routes/todo.routes.js";
 import userRouter from "./routes/user.routes.js";
 import adminRouter from "./routes/admin.routes.js";
+import passport from "passport";
+import authRouter from "./routes/oAuth.routes.js";
 
 dotenv.config();
 
@@ -19,6 +21,7 @@ app.use(cors({
   ],
   credentials: true
 }));
+app.use(passport.initialize())
 
 app.get("/", (req, res) => {
   res.send("Server is running");
@@ -28,7 +31,8 @@ const PORT = process.env.PORT || 5000;
 
 app.use("/user", userRouter);
 app.use("/todo", todoRouter);
-app.use("/admin",adminRouter)
+app.use("/admin",adminRouter);
+app.use("/auth",authRouter)
 
 async function start() {
   await connectToDB();
