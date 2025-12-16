@@ -12,15 +12,7 @@ authRouter.get("/google/callback",
   passport.authenticate("google", { session: false }),
   async (req, res) => {
     const token =await generateToken(req.user);
-    res.send(`
-        <script>
-          window.opener.postMessage(
-            { token: "${token}" },
-            "${process.env.FRONTEND_URL}"
-          );
-          window.close();
-        </script>
-      `);
+    res.redirect(`${process.env.FRONTEND_URL}welcome?token=${token}`);
   }
 );
 
