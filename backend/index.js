@@ -10,6 +10,7 @@ import authRouter from "./routes/oAuth.routes.js";
 import configurePassport from "./config/passport.js";
 import session from "express-session";
 import MongoStore from "connect-mongo";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
