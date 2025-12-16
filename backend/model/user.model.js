@@ -4,7 +4,9 @@ const userSchema = new Schema(
     {
         username: {
             type: String,
-            required: true,
+            required: function () {
+                return !this.googleId && !this.twitterId;
+            },
         },
         email: {
             type: String,

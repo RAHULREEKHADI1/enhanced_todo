@@ -33,9 +33,16 @@ export default function Header() {
 
   const isTodoPage = location.pathname === "/todo";
   let headingText = "TodoList";
-  if (location.pathname.startsWith("/about")) headingText = "About Us";
-  else if (location.pathname.startsWith("/contact")) headingText = "Contact Us";
-  else if (location.pathname.startsWith("/")) headingText = "Home";
+  
+  if (location.pathname.startsWith("/admin/dashboard")) {
+      headingText = "👤 Admin Dashboard";
+  } else if (location.pathname.startsWith("/about")) {
+      headingText = "About Us";
+  } else if (location.pathname.startsWith("/contact")) {
+      headingText = "Contact Us";
+  } else if (location.pathname === "/") {
+      headingText = "Home";
+  }
 
 
   return (
@@ -44,9 +51,9 @@ export default function Header() {
     >
       <div className=" sm:mx-4 flex justify-between  items-center">
         <div className="flex items-center justify-center gap-1 sm:gap-2 md:gap-4">
-          <div className='h-10 w-10 lg:h-15 lg:w-15 rounded-full relative bg-cover bg-center'
+          {headingText!=="👤 Admin Dashboard" ?<div className='h-10 w-10 lg:h-15 lg:w-15 rounded-full relative bg-cover bg-center'
             style={{ backgroundImage: "url('/my_todo_image.png')" }}
-          ></div>
+          ></div>:""}
           <div className="py-2 font-semibold text-sm sm:text-2xl tracking-wide text-[#b1f392] hidden sm:block ">
              {headingText}
           </div>
@@ -63,7 +70,7 @@ export default function Header() {
             Contact
           </button>
 
-          {token && isTodoPage && (
+          {token && (isTodoPage || headingText==="👤 Admin Dashboard" )&& (
             <button
               className="bg-[#CF3620] py-1 lg:py-3 text-white rounded-lg px-2 lg:px-4 cursor-pointer shadow-[0_8px_15px_rgba(207,54,32,0.4)]"
               onClick={logout}
