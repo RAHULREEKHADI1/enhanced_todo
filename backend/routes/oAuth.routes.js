@@ -1,5 +1,6 @@
 import express from 'express'
 import passport from 'passport';
+import { generateToken } from '../jwt/token';
 
 const authRouter = express.Router();
 authRouter.get("/google", passport.authenticate("google", { scope: ["email", "profile"] }));
