@@ -91,7 +91,7 @@ export default function AdminTodos() {
               key={todo._id}
               className="bg-white p-5 rounded-xl shadow-lg border-l-4 border-indigo-500 flex justify-between items-start transition duration-300 hover:shadow-xl"
             >
-              <div className="flex-grow pr-4">
+              <div className="grow pr-4">
                 <div className="flex items-center mb-2">
                   <p className="font-bold text-lg text-gray-900 mr-3">
                     {todo.title}
@@ -102,7 +102,7 @@ export default function AdminTodos() {
               </div>
 
               <button
-                className="flex-shrink-0 bg-red-600 text-white font-medium px-4 py-2 rounded-lg hover:bg-red-700 transition duration-150 shadow-md"
+                className="shrink-0 bg-red-600 text-white font-medium px-4 py-2 rounded-lg hover:bg-red-700 transition duration-150 shadow-md"
                 onClick={() => deleteTodo(todo._id)}
               >
                 Delete

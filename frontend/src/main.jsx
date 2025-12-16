@@ -9,6 +9,8 @@ import Home from './components/Home.jsx'
 import Welcome from './components/Welcome.jsx'
 import AdminDashboard from './components/AdminDashboard.jsx'
 import AdminTodos from './components/AdminTodos.jsx'
+import About from './components/About.jsx'
+import Contact from './components/Contact.jsx'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -22,6 +24,8 @@ createRoot(document.getElementById('root')).render(
       <Route path="/login" element={<Signup initialMode="login" />} />
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
        <Route path="/admin/todos" element={<AdminTodos />}/>
+       <Route path="/about" element={<About/>}/>
+       <Route path='/contact' element={<Contact/>}/>
       <Route element={<Layout />}>
         <Route path="/todo" element={<Todo />} />
       </Route>

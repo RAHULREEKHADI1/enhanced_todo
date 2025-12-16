@@ -32,6 +32,10 @@ export default function Header() {
   };
 
   const isTodoPage = location.pathname === "/todo";
+  let headingText = "TodoList";
+  if (location.pathname.startsWith("/about")) headingText = "About Us";
+  else if (location.pathname.startsWith("/contact")) headingText = "Contact Us";
+  else if (location.pathname.startsWith("/")) headingText = "Home";
 
 
   return (
@@ -44,14 +48,21 @@ export default function Header() {
             style={{ backgroundImage: "url('/my_todo_image.png')" }}
           ></div>
           <div className="py-2 font-semibold text-sm sm:text-2xl tracking-wide text-[#b1f392] hidden sm:block ">
-            TodoList
+             {headingText}
           </div>
         </div>
 
         <div className="flex items-center lg:gap-16 md:gap-8 sm:gap-6 gap-4 text-sm sm:text-lg">
-          <a href="/">Home</a>
-          <a href="#">About</a>
-          <a href="#">Contact</a>
+          <button onClick={() => navigateTo("/")} className="hover:underline">
+            Home
+          </button>
+          <button onClick={() => navigateTo("/about")} className="hover:underline">
+            About
+          </button>
+          <button onClick={() => navigateTo("/contact")} className="hover:underline">
+            Contact
+          </button>
+
           {token && isTodoPage && (
             <button
               className="bg-[#CF3620] py-1 lg:py-3 text-white rounded-lg px-2 lg:px-4 cursor-pointer shadow-[0_8px_15px_rgba(207,54,32,0.4)]"
