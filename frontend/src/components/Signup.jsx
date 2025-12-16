@@ -90,9 +90,29 @@ const Signup = ({ initialMode = 'signup' }) => {
             }
         }
     };
+    useEffect(() => {
+        const handleMessage = (event) => {
+            if (event.origin !== BACKEND_URL) return;
 
+            const { token } = event.data;
+            if (token) {
+                localStorage.setItem("token", token);
+                navigateTo("/welcome"); // or dashboard
+            }
+        };
+        window.addEventListener("message", handleMessage);
+        return () => window.removeEventListener("message", handleMessage);
+    }, [navigateTo]);
     const handleLogin = async (e) => {
         e.preventDefault();
+
+        const openPopup = (provider) => {
+            window.open(
+                `${BACKEND_URL}/auth/${provider}`,
+                "_blank",
+                "width=500,height=600"
+            );
+        };
 
         try {
             const { data } = await axios.post(
@@ -313,7 +333,7 @@ const Signup = ({ initialMode = 'signup' }) => {
                             </div>
                             <div className='flex gap-8'>
                                 <a href="https://enhanced-todo.onrender.com/auth/facebook">
-                                    <FaFacebook className="text-blue-500 w-10 h-10 cursor-pointer" />
+                                    <FaFacebook className="text-blue-500 w-10 h-10 cursor-pointer" onClick={() => openPopup("google")} />
                                 </a>
 
                                 <a href="https://enhanced-todo.onrender.com/auth/google">
@@ -321,7 +341,7 @@ const Signup = ({ initialMode = 'signup' }) => {
                                 </a>
 
                                 <a href="https://enhanced-todo.onrender.com/auth/twitter">
-                                    <FaTwitter className="text-blue-400 w-10 h-10 cursor-pointer" />
+                                    <FaTwitter className="text-blue-400 w-10 h-10 cursor-pointer" onClick={() => openPopup("twitter")} />
                                 </a>
                             </div>
 
