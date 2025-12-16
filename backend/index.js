@@ -7,13 +7,15 @@ import userRouter from "./routes/user.routes.js";
 import adminRouter from "./routes/admin.routes.js";
 import passport from "passport";
 import authRouter from "./routes/oAuth.routes.js";
+import configurePassport from "./config/passport.js";
+import session from "express-session";
 
 dotenv.config();
 
 const app = express();
 
 app.use(express.json());
-
+app.use(session({ secret: "secret", resave: false, saveUninitialized: false }));
 app.use(cors({
   origin: [
     "http://localhost:5173",
@@ -22,6 +24,8 @@ app.use(cors({
   credentials: true
 }));
 app.use(passport.initialize())
+app.use(passport.session());
+configurePassport();
 
 app.get("/", (req, res) => {
   res.send("Server is running");
