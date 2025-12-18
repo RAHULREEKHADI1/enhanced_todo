@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import axios from 'axios';
@@ -16,6 +16,8 @@ const Signup = ({ initialMode = 'signup' }) => {
     const isSignup = linkState === 'signup'
     const [role, setRole] = useState('user');
     const [startParagraph, setStartParagraph] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const loadingRef = useRef(false);
 
     const headingText = "Welcome back";
     const paragraphText = "Access your tasks. Stay consistent. Continue your productivity journey. You're almost there.";
@@ -51,7 +53,9 @@ const Signup = ({ initialMode = 'signup' }) => {
     };
     const handleRegister = async (e) => {
         e.preventDefault();
-
+        if (loadingRef.current) return;
+        loadingRef.current = true;
+        setLoading(true);
         try {
             const { data } = await axios.post(
                 `${import.meta.env.VITE_API_URL}/user/signup`,
@@ -88,12 +92,17 @@ const Signup = ({ initialMode = 'signup' }) => {
             } else {
                 toast.error("Unexpected error occurred");
             }
+        } finally {
+            setLoading(false)
+            loadingRef.current = false; 
         }
     };
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
+        if (loadingRef.current) return; 
+        loadingRef.current = true;  
+        setLoading(true);
         try {
             const { data } = await axios.post(
                 `${import.meta.env.VITE_API_URL}/user/login`,
@@ -107,18 +116,22 @@ const Signup = ({ initialMode = 'signup' }) => {
                     }
                 }
             );
+            const userData = data.user || data.admin; 
+        const role = userData?.role;
+            
 
             localStorage.setItem("jwt", data.token);
-            localStorage.setItem("role", data.user.role);
-            console.log("role", data.user.role);
+            console.log("role", role);
+            localStorage.setItem("role",role);
+            
 
             console.log(data.token, 'data.token');
 
-            navigateTo(data.user.role === 'admin' ? '/admin/dashboard' : '/welcome');
-            console.log(data.user.role);
+            navigateTo(role === 'admin' ? '/admin/dashboard' : '/welcome');
+            console.log(role);
 
             toast.success(
-                data.user.role === "admin"
+                role === "admin"
                     ? "Admin logged in successfully"
                     : data.message || "User logged in successfully"
             );
@@ -132,6 +145,9 @@ const Signup = ({ initialMode = 'signup' }) => {
             } else {
                 toast.error("Unexpected error occurred");
             }
+        } finally {
+            setLoading(false)
+            loadingRef.current = false; 
         }
     };
 
@@ -238,8 +254,8 @@ const Signup = ({ initialMode = 'signup' }) => {
 
                         </div>
                     </div>}
-                <div className="flex flex-col gap-6 w-full max-w-md bg-white p-8 rounded-xl border border-gray-100 shadow-lg bg-cover bg-center"
-                    style={{ backgroundImage: "url('/bg_image_login_page.jpg')" }}
+                <div className="flex flex-col gap-6 w-full max-w-md bg-linear-to-r from-[#38434b] via-[#151A1E] to-[#151A1E] p-8 rounded-xl border border-gray-100 shadow-lg bg-cover bg-center"
+                    // style={{ backgroundImage: "url('/bg_image_login_page.jpg')" }}
                 >
                     <div className="flex justify-center gap-4 text-center items-center">
                         <div className='h-8 w-8 lg:h-12 lg:w-12 rounded-full relative bg-cover bg-center'
@@ -300,8 +316,9 @@ const Signup = ({ initialMode = 'signup' }) => {
                     </div>
 
                     <button
-                        className="bg-[#89da63] text-white w-full py-2 rounded-xl hover:bg-[#84a077] transition-colors"
-                        onClick={isSignup ? handleRegister : handleLogin}
+                        className={`bg-[#89da63] text-white w-full py-2 rounded-xl hover:bg-[#84a077] transition-colors ${loading ? "opacity-60 cursor-not-allowed" : ""}`}
+                        disabled={loading}
+                        onClick={!loading ? (isSignup ? handleRegister : handleLogin) : undefined}
                     >
                         {isSignup ? 'Sign Up' : 'Login'}
                     </button>

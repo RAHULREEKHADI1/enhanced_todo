@@ -55,7 +55,7 @@ export const register = async (req, res) => {
 
 
 export const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password,role } = req.body;  
 
   try {
     if (!email || !password) {
@@ -73,7 +73,16 @@ export const login = async (req, res) => {
     }
 
     const token = await generateToken(user._id);
-
+    console.log(user.role);
+    
+    if(user.role==="admin"){
+      const admin = user;
+      return res.status(200).json({
+        message:"Admin logged in successfully",
+        token,
+        admin
+      })
+    }
     return res.status(200).json({
       message: "User logged in successfully",
       user,

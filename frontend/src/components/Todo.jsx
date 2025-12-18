@@ -2,13 +2,20 @@ import React, { useState, useEffect, useMemo } from "react";
 import { FaTrash, FaPlus, FaSignOutAlt, FaCheckCircle, FaRegCircle, FaListUl, FaSearch, FaTimes } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+
+const colorVariants = {
+    blue: "bg-blue-500 shadow-blue-200",
+    green: "bg-green-500 shadow-green-200",
+    gray: "bg-gray-500 shadow-gray-200",
+};
 
 const SidebarButton = ({ onClick, icon: Icon, children, isActive, colorClass, count }) => (
   <button
     onClick={onClick}
     className={`flex items-center justify-between py-2 px-4 rounded-lg font-medium transition-all text-left w-full
       ${isActive
-        ? `bg-${colorClass}-500 text-white shadow-lg shadow-${colorClass}-200`
+        ? `${colorVariants[colorClass]} text-white shadow-lg` 
         : `text-gray-700 hover:bg-gray-200 dark:text-gray-200 dark:hover:bg-gray-700`
       }`}
   >
@@ -53,14 +60,6 @@ const TodoSidebar = ({ onSearch, onAddTodo, filterCompleted, filterUncompleted, 
             )}
         </div>
       </div>
-
-      <button
-        onClick={onAddTodo}
-        className="flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl shadow-md transition-all transform hover:scale-[1.02] active:scale-[0.98] font-bold"
-      >
-        <FaPlus /> New Task
-      </button>
-
       <div className="flex flex-col gap-2 pt-4 border-t border-gray-200 dark:border-gray-700">
         <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-300 mb-1">Filter Tasks</h3>
         
@@ -214,7 +213,6 @@ const Todo = () => {
     }
   };
   
-  // FIXED: Iterate and call the working single-delete endpoint for each completed task
   const clearCompletedTodos = async () => {
       setError(null);
       const completedTasks = todos.filter(t => t.completed);
@@ -223,7 +221,6 @@ const Todo = () => {
       const userConfirmed = window.confirm(`Are you sure you want to delete ${completedTasks.length} completed task(s)?`);
       if (!userConfirmed) return;
       
-      // Optimistic state update: Filter out completed tasks immediately
       setTodos((prevTodos) => prevTodos.filter(t => !t.completed));
       
       const jwt = localStorage.getItem("jwt");
@@ -242,9 +239,8 @@ const Todo = () => {
 
       if (deletionFailed) {
           setError("One or more completed tasks failed to delete. Please refresh to sync.");
-          fetchTodos(); // Re-fetch to synchronize state
+          fetchTodos(); 
       } else {
-          // If the filter was on 'completed', switch to 'all' or 'uncompleted'
           if (filterType === 'completed') {
               showAll();
           }
@@ -300,11 +296,6 @@ const Todo = () => {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("jwt");
-    navigateTo("/login");
-  };
-
   const backgroundStyle = {
     backgroundImage: "url('/bg_image_login_new.png')",
     backgroundAttachment: 'fixed',
@@ -338,14 +329,6 @@ const Todo = () => {
             <h1 className="text-3xl font-extrabold text-gray-800">
               <span className="text-green-600">My</span> Tasks
             </h1>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 text-red-500 hover:text-red-700 font-medium transition-colors"
-              title="Logout"
-            >
-              <FaSignOutAlt />
-              <span className="hidden sm:inline">Logout</span>
-            </button>
           </header>
 
           {error && (
