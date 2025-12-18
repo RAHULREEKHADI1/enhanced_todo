@@ -11,6 +11,7 @@ import configurePassport from "./config/passport.js";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
+import contactRouter from "./routes/contact.routes.js";
 
 dotenv.config();
 
@@ -44,7 +45,8 @@ const PORT = process.env.PORT || 5000;
 app.use("/user", userRouter);
 app.use("/todo", todoRouter);
 app.use("/admin",adminRouter);
-app.use("/auth",authRouter)
+app.use("/auth",authRouter);
+app.use("/contact",contactRouter);
 
 async function start() {
   await connectToDB();
