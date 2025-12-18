@@ -15,7 +15,7 @@ const Welcome = () => {
     ];
     useEffect(() => {
     const params = new URLSearchParams(location.search);
-    const token = params.get("jwt");
+    const token = params.get("jwt") || localStorage.getItem('jwt');
 
     if (token) {
       localStorage.setItem("jwt", token);
