@@ -295,29 +295,6 @@ const Todo = () => {
       createTodo();
     }
   };
-  
-  const [token, setToken] = useState(localStorage.getItem('jwt'))
-  const handleLogout = async () => {
-    try {
-      console.log("r u coming in logout");
-      
-      await axios.get(`${import.meta.env.VITE_API_URL}/user/logout`);
-      console.log(`${import.meta.env.VITE_API_URL}/user/logout`);      
-      toast.success("User logged out successfully");
-
-      navigateTo("/login");
-      console.log("working fine");
-      
-      localStorage.removeItem("jwt");
-      localStorage.removeItem('role')
-      setToken(null)
-
-    } catch (err) {      
-      toast.error("Error logging outrtyuiop[]");
-      console.log(err);
-
-    }
-  };
 
   const backgroundStyle = {
     backgroundImage: "url('/bg_image_login_new.png')",
@@ -352,14 +329,6 @@ const Todo = () => {
             <h1 className="text-3xl font-extrabold text-gray-800">
               <span className="text-green-600">My</span> Tasks
             </h1>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 text-red-500 hover:text-red-700 font-medium transition-colors"
-              title="Logout"
-            >
-              <FaSignOutAlt />
-              <span className="hidden sm:inline">Logout</span>
-            </button>
           </header>
 
           {error && (
