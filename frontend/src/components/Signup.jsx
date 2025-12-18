@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import axios from 'axios';
@@ -16,6 +16,8 @@ const Signup = ({ initialMode = 'signup' }) => {
     const isSignup = linkState === 'signup'
     const [role, setRole] = useState('user');
     const [startParagraph, setStartParagraph] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const loadingRef = useRef(false);
 
     const headingText = "Welcome back";
     const paragraphText = "Access your tasks. Stay consistent. Continue your productivity journey. You're almost there.";
@@ -51,7 +53,9 @@ const Signup = ({ initialMode = 'signup' }) => {
     };
     const handleRegister = async (e) => {
         e.preventDefault();
-
+        if (loadingRef.current) return;
+        loadingRef.current = true;
+        setLoading(true);
         try {
             const { data } = await axios.post(
                 `${import.meta.env.VITE_API_URL}/user/signup`,
@@ -88,12 +92,17 @@ const Signup = ({ initialMode = 'signup' }) => {
             } else {
                 toast.error("Unexpected error occurred");
             }
+        } finally {
+            setLoading(false)
+            loadingRef.current = false; 
         }
     };
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
+        if (loadingRef.current) return; 
+        loadingRef.current = true;  
+        setLoading(true);
         try {
             const { data } = await axios.post(
                 `${import.meta.env.VITE_API_URL}/user/login`,
@@ -136,6 +145,9 @@ const Signup = ({ initialMode = 'signup' }) => {
             } else {
                 toast.error("Unexpected error occurred");
             }
+        } finally {
+            setLoading(false)
+            loadingRef.current = false; 
         }
     };
 
@@ -304,8 +316,9 @@ const Signup = ({ initialMode = 'signup' }) => {
                     </div>
 
                     <button
-                        className="bg-[#89da63] text-white w-full py-2 rounded-xl hover:bg-[#84a077] transition-colors"
-                        onClick={isSignup ? handleRegister : handleLogin}
+                        className={`bg-[#89da63] text-white w-full py-2 rounded-xl hover:bg-[#84a077] transition-colors ${loading ? "opacity-60 cursor-not-allowed" : ""}`}
+                        disabled={loading}
+                        onClick={!loading ? (isSignup ? handleRegister : handleLogin) : undefined}
                     >
                         {isSignup ? 'Sign Up' : 'Login'}
                     </button>
