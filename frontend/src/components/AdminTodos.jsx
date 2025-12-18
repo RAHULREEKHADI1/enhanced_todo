@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -8,6 +8,7 @@ export default function AdminTodos() {
   const [loading, setLoading] = useState(true);
   const [params] = useSearchParams();
   const userId = params.get("user");
+  const navigateTo = useNavigate();
 
   useEffect(() => {
     if (!userId) return;
@@ -111,6 +112,12 @@ export default function AdminTodos() {
           ))}
         </div>
       )}
+      <div className="flex flex-col items-center mt-16">
+        <button onClick={()=> navigateTo(-1)} className="group flex items-center gap-2 px-8 py-3 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 rounded-2xl font-medium shadow-sm hover:shadow-md hover:border-blue-400 dark:hover:border-blue-500 transition-all">
+          <span className="transform group-hover:-translate-x-1 transition-transform">←</span>
+          Back to Admin Dashboard
+        </button>
+      </div>
     </div>
   );
 }

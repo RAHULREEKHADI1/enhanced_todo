@@ -6,6 +6,7 @@ import { useState } from "react";
 
 export default function Header() {
   const navigateTo = useNavigate();
+  const role = localStorage.getItem('role');
 
   const [token, setToken] = useState(localStorage.getItem('jwt'))
   console.log(token, 'dfghjk');
@@ -60,19 +61,23 @@ export default function Header() {
         </div>
 
         <div className="flex items-center lg:gap-16 md:gap-8 sm:gap-6 gap-4 text-sm sm:text-lg">
-          <button onClick={() => navigateTo("/")} className="hover:underline">
+          {role==="admin" ? 
+          (headingText !== "👤 Admin Dashboard" && <button onClick={() => navigateTo("/admin/dashboard")} className="hover:underline">Admin Dashboard</button>)
+           :
+          (headingText !== "TodoList" &&  <button onClick={() => navigateTo("/todo")} className="hover:underline">Your Todos</button>)}  
+          {headingText!=="Home" && <button onClick={() => navigateTo("/")} className="hover:underline">
             Home
-          </button>
-          <button onClick={() => navigateTo("/about")} className="hover:underline">
+          </button>}
+          {headingText!=="About Us" &&<button onClick={() => navigateTo("/about")} className="hover:underline">
             About
-          </button>
-          <button onClick={() => navigateTo("/contact")} className="hover:underline">
+          </button>}
+          {headingText!=="Contact Us" &&<button onClick={() => navigateTo("/contact")} className="hover:underline">
             Contact
-          </button>
+          </button>}
 
-          {token && (isTodoPage || headingText==="👤 Admin Dashboard" )&& (
+          {(token || (isTodoPage || headingText==="👤 Admin Dashboard" ))&& (
             <button
-              className="bg-[#CF3620] py-1 lg:py-3 text-white rounded-lg px-2 lg:px-4 cursor-pointer shadow-[0_8px_15px_rgba(207,54,32,0.4)]"
+              className="bg-[#CF3620] py-1 lg:py-2 text-white rounded-lg px-2 lg:px-6 cursor-pointer shadow-[0_8px_15px_rgba(207,54,32,0.4)]"
               onClick={logout}
             >
               Logout
